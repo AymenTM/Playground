@@ -35,11 +35,3 @@ emp_1.fullname = 'Derek Meigner'
 print(emp_1)
 
 del emp_1.fullname
-
-
-# 1 - we create private variables.
-
-# 2 - and only allow access them via the setter, getter and deleter methods
-
-# 3 - and these methods thanks to the property's decorator functions become
-#     accessible just like any attribute
