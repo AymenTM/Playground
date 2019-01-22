@@ -1,2 +1,2 @@
 # Playground
-Where all the magic happens.
+Where all the learning happens.
