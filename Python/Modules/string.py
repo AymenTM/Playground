@@ -40,3 +40,14 @@ import string
         # "Hey James, let's get some $foodType."
 
 # — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —
+
+        # >>> capwords('james gorden')
+        # 'James Gorden'
+
+        # >>> capwords('monday, january 3rd, 2019')
+        # 'Monday, January 3rd, 2019'
+
+        # >>> capwords('jAmes-stEVe-bOB-LAYA-saRah', sep='-')
+        # 'James-Steve-Bob-Laya-Sarah'
+
+# — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —
