@@ -34,9 +34,9 @@ import string
 
 # — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —
 
-    # >>> food_request = string.Template("Hey $name, let's get some $foodType.")
+        # >>> food_request = string.Template("Hey $name, let's get some $foodType.")
 
-    # >>> food_request.safe_substitute(name='James', food='pizza')
-    # "Hey James, let's get some $foodType."
+        # >>> food_request.safe_substitute(name='James', food='pizza')
+        # "Hey James, let's get some $foodType."
 
 # — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —
