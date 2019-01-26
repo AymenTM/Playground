@@ -1,11 +1,11 @@
+# Credits: Youtube - Corey Schafer - Python Flask Tutorial (14 Part Series)
 
-# Blog Post Website
-# Credits: Youtube - Corey Schafer - Python Flask Tutorial
+# Blog Post Websites
 
 from flask import Flask, render_template, url_for
 app = Flask(__name__)
 
-database = [
+content = [
     {
         'author': 'John Doe',
         'title': 'Blog Post 1',
@@ -24,7 +24,7 @@ database = [
 @app.route("/")
 @app.route("/home")
 def home():
-    return render_template('home.html', posts=database)
+    return render_template('home.html', posts=content)
 
 
 @app.route("/about")
@@ -34,3 +34,4 @@ def about():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
