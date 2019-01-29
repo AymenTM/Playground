@@ -1,5 +1,5 @@
 
-#include "myModule.h"
+#include "myFib.h"
 
 int fib(int n)
 {
@@ -9,7 +9,3 @@ int fib(int n)
         return (fib(n - 1) + fib(n - 2));
 }
 
-int my_mod(int n, int m)
-{
-  return(n % m);
-}

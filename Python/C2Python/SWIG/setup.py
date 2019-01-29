@@ -2,38 +2,80 @@
 # — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —
 # Main Part
 
+from contextlib import contextmanager
 from distutils.core import setup, Extension
-
-name = 'myModule'
-version = '1.0'
-
-module = Extension( name=f'_{name}',
-                    sources=[f'{name}.c', f'{name}.i'] )
-
-setup(  name            = name,
-        version         = version,
-        ext_modules     = [module] )
-
-# NOTE: swig requires an underscore as a prefix for the module
-#       extension name (line 10).
-
-
-
-# — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —
-# Hide everything neatly in 1 directory.
-
 import os
 
-os.mkdir(name)
-with open(f'{name}/__init__.py', 'x') as f: pass
+@contextmanager
+def gotoDirectory(path):
+    try:
+        initial_dir = os.getcwd()
+        if os.path.isdir(path) is False:
+            os.mkdir(path)
+        os.chdir(path)
+        yield
+    except Exception:
+        raise 'Error in "gotoDirectory"'
+    finally:
+        os.chdir(initial_dir)
+
+# Manually Set the Module Names
+# files = [
+#     ('myFib', '1.0'),
+#     ('myStrlen', '1.0'),
+#     ('myConvertBase', '1.0')
+# ]
+
+# Automatically Sets the Module Names
+files = []
+version = '1.0'
+for directory in os.listdir():
+    if os.path.isdir(directory):
+        files.append((directory, version))
+
+# Duplicate Everything into a Seperate Directory
+cpy_dir = 'Recreate'
+os.mkdir(cpy_dir)
 for file in os.listdir():
-    if file != name:
-        os.rename(file, f'{name}/{file}')
+    if file != cpy_dir:
+        os.system(f'cp -r {file} {cpy_dir}/{file}')
 
-# You can import the newly created module by specifying
-# the name of the directory dot name of module, ex:
 
-# 	  import myModule.myModule as myModule
+for name, version in files:
+
+    # If your files are already in seperate directories than comment this out
+    # Move everything related to 'name' to a Temporary Directory
+    # os.mkdir(name)
+    # for file in os.listdir():
+    #     if file != name and file.split('.')[0] == name:
+    #         os.system(f'mv {file} {name}/{file}')
+
+    # # Cd to that Seperate Directory
+    with gotoDirectory(name):
+
+        # Build
+        module = Extension( name=f'_{name}',
+                            sources=[f'{name}.c', f'{name}.i'] )
+
+        setup(  name            = name,
+                version         = version,
+                ext_modules     = [module] )
+
+        # NOTE: swig requires an underscore as a prefix for the module
+        #       extension name (line 48).
+
+        # Extract the Necessary Files & Clean Up
+        os.system('mv ./build/lib*/*.so .')
+        os.system('rm -r build/ *.c *.h *.i')
+        os.system('mv * ../')
+
+    os.system(f'rm -r {name}')
+
+os.system('rm setup.py')
+with open(f'__init__.py', 'x') as f: pass
+final_dir = 'pyModule'
+os.mkdir(final_dir)
+os.system(f'mv * {final_dir}')
 
 
 
@@ -42,15 +84,15 @@ for file in os.listdir():
 # — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —
 # Possible Extension Fields:
 
-# module = Extension(	name 					= 'my_module._module',
-#                 	sources 				= ['src/ext_module1.cpp',
-#                          		 		   	   'src/ext_module2.cpp',
-#                          		 		   	   'src/swig_module.i'],
-#                 	swig_opts 				= ['-c++', '-py3'],
-#                 	include_dirs 			= [...],
-#                 	runtime_library_dirs 	= [...],
-#                 	libraries 				= [...],
-#                 	extra_compile_args 		= ['-Wno-write-strings'])
+# module = Extension(   name                    = 'my_module._module',
+#                   sources                 = ['src/ext_module1.cpp',
+#                                              'src/ext_module2.cpp',
+#                                              'src/swig_module.i'],
+#                   swig_opts               = ['-c++', '-py3'],
+#                   include_dirs            = [...],
+#                   runtime_library_dirs    = [...],
+#                   libraries               = [...],
+#                   extra_compile_args      = ['-Wno-write-strings'])
 
 
 # — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —
