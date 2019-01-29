@@ -1,4 +1,9 @@
 
+# Script Version 0.1
+
+# See "Playground/Python/Cython/Testing_C_Cy_Py/setup.py" for Version 1.0
+
+
 # — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —
 # Main Part
 
