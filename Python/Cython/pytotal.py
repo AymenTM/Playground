@@ -1,6 +1,5 @@
 
-
-def test(x):
+def pytotal(x):
     y = 0
     for i in range(x):
         y += i

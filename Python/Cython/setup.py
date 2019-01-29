@@ -1,12 +1,11 @@
 
-files = [
-	'example_cy.pyx'
-]
-
 from distutils.core import setup
 from Cython.Build import cythonize
+import os
 
-for file in files:
-	setup(ext_modules=cythonize(file))
+for file in os.listdir():
 
-# run the command: 'python setup.py build_ext --inplace'
+	if os.path.isfile(file) and file.endswith('.pyx'):
+
+		setup(ext_modules=cythonize(file))
+		os.system('mv build/lib*/*.so . ; rm -rf build *.c')
