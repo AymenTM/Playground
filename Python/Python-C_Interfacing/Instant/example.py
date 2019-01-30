@@ -1,0 +1,27 @@
+
+from instant import inline
+
+add = inline("""
+int add(int a, int b)
+{
+    return (a + b);
+}
+""")
+
+sub = inline("""
+int sub(int a, int b)
+{
+    return (a - b);
+}
+""")
+
+mul = inline("""
+int mul(int a, int b)
+{
+    return (a * b);
+}
+""")
+
+print(add(5, 5))
+print(sub(5, 5))
+print(mul(5, 5))

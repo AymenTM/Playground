@@ -1,0 +1,1 @@
+int ctotal(int x);

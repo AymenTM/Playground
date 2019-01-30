@@ -1,5 +1,5 @@
 
-cpdef int cytotal(int x):
+cpdef int total(int x):
     cdef int y = 0
     cdef int i
     for i in range(x):

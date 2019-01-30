@@ -49,3 +49,17 @@ def timer():
     finally:
         t2 = perf_counter()
         print(f"[Finished block in {t2 - t1:.9f}s]")
+
+
+@contextmanager
+def gotoDirectory(path):
+    try:
+        initial_dir = os.getcwd()
+        if os.path.isdir(path) is False:
+            os.mkdir(path)
+        os.chdir(path)
+        yield
+    except Exception:
+        raise 'Error in "gotoDirectory"'
+    finally:
+        os.chdir(initial_dir)
