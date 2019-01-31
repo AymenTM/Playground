@@ -1,9 +1,6 @@
 
 # Script Version 2.0
 
-# See "../dirsOnly" for Version 0.1
-# See Version 1.0 below
-
 from distutils.core import setup, Extension
 import os
 
@@ -30,10 +27,27 @@ os.system('touch pyMod/__init__.py')
 os.system('mv *.py *.so pyMod/')
 os.system('mv pyMod/setup.py .')
 os.system('clear')
-os.system('echo "Process Complete. Output ==> pyMod"')
+os.system('echo "Process Complete. Output ==>"')
+os.system('echo')
+os.system('echo "./pyMod"')
+os.system('echo "."')
+os.system('echo ".."')
+os.system('ls -1 pyMod/')
+os.system('echo')
+
+
+# — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —
 
 
 
+
+
+
+
+
+
+
+# — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —
 
 # Script Version 1.0
 

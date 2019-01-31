@@ -1,7 +1,5 @@
 
-# Script Version 1.0
-
-# See "Playground/Python/C2Python/SWIG/setup.py" for Version 0.1
+# Script Version 2.0
 
 from distutils.core import setup, Extension
 import os
@@ -12,7 +10,6 @@ for file in os.listdir():
     if os.path.isfile(file) and file.endswith('.c'):
         files.append((file.split('.')[0], version))
 
-os.system(f'mkdir Recreate')
 for name, version in files:
 
     module = Extension( name=f'_{name}',
@@ -24,9 +21,16 @@ for name, version in files:
 
     os.system('mv build/lib*/*.so .')
 
-    os.system(f'mv {name}.c Recreate/')
-    os.system(f'mv {name}.h Recreate/')
-    os.system(f'mv {name}.i Recreate/')
-
 os.system('rm -rf *_wrap.c build/')
-os.system(f'mv setup.py Recreate/')
+os.system('mkdir pyMod')
+os.system('touch pyMod/__init__.py')
+os.system('mv *.py *.so pyMod/')
+os.system('mv pyMod/setup.py .')
+os.system('clear')
+os.system('echo "Process Complete. Output ==>"')
+os.system('echo')
+os.system('echo "./pyMod"')
+os.system('echo "."')
+os.system('echo ".."')
+os.system('ls -1 pyMod/')
+os.system('echo')

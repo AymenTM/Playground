@@ -38,7 +38,14 @@ for name, version in files:
 
 os.system('touch pyMod/__init__.py')
 os.system('clear')
-os.system('echo "Process Complete. Output ==> pyMod"')
+os.system('echo "Process Complete. Output ==>"')
+os.system('echo')
+os.system('echo "./pyMod"')
+os.system('echo "."')
+os.system('echo ".."')
+os.system('ls -1 pyMod/')
+os.system('echo')
+
 
 # — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —
 

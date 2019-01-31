@@ -1,4 +1,6 @@
 
+# Compiling a C source code function at run time
+
 from instant import inline
 
 add = inline("""
@@ -25,3 +27,10 @@ int mul(int a, int b)
 print(add(5, 5))
 print(sub(5, 5))
 print(mul(5, 5))
+
+
+# — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — 
+# Output:
+# 10
+# 0
+# 25
