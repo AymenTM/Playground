@@ -2,38 +2,38 @@
 # Script Version 2.0
 
 from distutils.core import setup, Extension
-import os
+from os import listdir, system, path
 
 files = []
 version = '1.0'
-for file in os.listdir():
-    if os.path.isfile(file) and file.endswith('.c'):
+for file in listdir():
+    if path.isfile(file) and file.endswith('.c'):
         files.append((file.split('.')[0], version))
 
 for name, version in files:
 
-    module = Extension( name=f'_{name}',
-                        sources=[f'{name}.c', f'{name}.i'] )
+    module = Extension( name      = f'_{name}',
+                        sources   = [f'{name}.c', f'{name}.i'] )
 
     setup(  name            = name,
             version         = version,
             ext_modules     = [module] )
 
-    os.system('mv build/lib*/*.so .')
+    system('mv build/lib*/*.so .')
 
-os.system('rm -rf *_wrap.c build/')
-os.system('mkdir pyMod')
-os.system('touch pyMod/__init__.py')
-os.system('mv *.py *.so pyMod/')
-os.system('mv pyMod/setup.py .')
-os.system('clear')
-os.system('echo "Process Complete. Output ==>"')
-os.system('echo')
-os.system('echo "./pyMod"')
-os.system('echo "."')
-os.system('echo ".."')
-os.system('ls -1 pyMod/')
-os.system('echo')
+system('rm -rf *_wrap.c build/')
+system('mkdir pyMod')
+system('touch pyMod/__init__.py')
+system('mv *.py *.so pyMod/')
+system('mv pyMod/setup.py .')
+system('clear')
+system('echo "Process Complete. Output ==>"')
+system('echo')
+system('echo "./pyMod"')
+system('echo "."')
+system('echo ".."')
+system('ls -1 pyMod/')
+system('echo')
 
 
 # — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —

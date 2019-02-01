@@ -1,0 +1,21 @@
+running build_ext
+building '_libcpp' extension
+gcc -Wno-unused-result -Wsign-compare -Wunreachable-code -fno-common -dynamic -DNDEBUG -g -fwrapv -O3 -Wall -arch x86_64 -g -I./CPP_example -I/Library/Frameworks/Python.framework/Versions/3.7/include/python3.7m -c source1.cpp -o build/temp.macosx-10.9-x86_64-3.7/source1.o -O3
+source1.cpp:1:17: warning: using directive refers to implicitly-defined namespace 'std'
+using namespace std;
+                ^
+1 warning generated.
+gcc -Wno-unused-result -Wsign-compare -Wunreachable-code -fno-common -dynamic -DNDEBUG -g -fwrapv -O3 -Wall -arch x86_64 -g -I./CPP_example -I/Library/Frameworks/Python.framework/Versions/3.7/include/python3.7m -c source2.cpp -o build/temp.macosx-10.9-x86_64-3.7/source2.o -O3
+source2.cpp:1:17: warning: using directive refers to implicitly-defined namespace 'std'
+using namespace std;
+                ^
+1 warning generated.
+gcc -Wno-unused-result -Wsign-compare -Wunreachable-code -fno-common -dynamic -DNDEBUG -g -fwrapv -O3 -Wall -arch x86_64 -g -I./CPP_example -I/Library/Frameworks/Python.framework/Versions/3.7/include/python3.7m -c libcpp_wrap.cxx -o build/temp.macosx-10.9-x86_64-3.7/libcpp_wrap.o -O3
+g++ -bundle -undefined dynamic_lookup -arch x86_64 -g build/temp.macosx-10.9-x86_64-3.7/source1.o build/temp.macosx-10.9-x86_64-3.7/source2.o build/temp.macosx-10.9-x86_64-3.7/libcpp_wrap.o -o build/lib.macosx-10.9-x86_64-3.7/_libcpp.cpython-37m-darwin.so
+running install
+running build
+running install_lib
+copying build/lib.macosx-10.9-x86_64-3.7/_libcpp.cpython-37m-darwin.so -> .
+running install_egg_info
+Removing ./libcpp-0.0.0-py3.7.egg-info
+Writing ./libcpp-0.0.0-py3.7.egg-info

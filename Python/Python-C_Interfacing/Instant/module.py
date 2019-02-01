@@ -3,7 +3,10 @@
 
 from instant import build_module
 
-c_code = """
+lib = build_module(code=r"""
+
+#include <stdio.h>
+
 int add(int a, int b)
 {
     return (a + b);
@@ -18,25 +21,6 @@ int mul(int a, int b)
 {
     return (a * b);
 }
-"""
-
-mathlib = build_module(code=c_code)
-
-print(mathlib.add(5, 5))
-print(mathlib.sub(5, 5))
-print(mathlib.mul(5, 5))
-
-# — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — 
-# Output:
-# 10
-# 0
-# 25
-
-
-
-
-c_code = r"""
-#include <stdio.h>
 
 void say_hi(void)
 {
@@ -47,13 +31,19 @@ void say_bye(void)
 {
     printf("Bye, world!\n");
 }
-"""
+""")
 
-lib = build_module(code=c_code)
+
+print(lib.add(5, 5))
+print(lib.sub(5, 5))
+print(lib.mul(5, 5))
 lib.say_hi()
 lib.say_bye()
 
 # — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — 
 # Output:
+# 10
+# 0
+# 25
 # Hello, world!
 # Bye, world!
