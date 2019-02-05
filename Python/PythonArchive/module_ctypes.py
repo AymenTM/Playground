@@ -109,15 +109,134 @@ from ctypes import *
 
 # — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —
 
+		# >>> div = c_int()
+		# >>> mod = c_int()
 
+		# >>> ft_divmod(a, b, byref(div), byref(mod))
+
+		# >>> print(f'{div} <==> {div.value}')
+		# c_int(20) <==> 20
+
+		# >>> print(f'{mod} <==> {mod.value}')
+		# c_int(0) <==> 0
 
 # — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —
 
+		# >>> age = c_int(23)
+		# >>> ptr = pointer(age)
 
 
+		# >>> ptr
+		# <__main__.LP_c_int object at 0x10ded4400>
+
+		# >>> ptr._type_
+		# <class 'ctypes.c_int'>
+
+		# >>> ptr.contents
+		# c_int(23)
+
+		# >>> ptr.contents.value
+		# 23
+
+		# >>> ptr.contents._type_
+		# 'i'
 
 # — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —
 
+		# >>> class Student(Structure):
+		# ...
+		# ...     _fields_ = [('name', c_wchar_p),
+		# ...                 ('age', c_int),
+		# ...                 ('level', c_int)]
+		# ...
 
+		# >>> student_1 = Student('james', 15, 10)
+
+		# >>> student_1
+		# <__main__.Student object at 0x10621b378>
+
+		# >>> student_1.name
+		# 'james'
+
+		# >>> student_1.age
+		# 15
+
+		# >>> student_1.level
+		# 10
+
+# — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —
+
+		# >>> Student_Array = c_wchar_p * 10
+
+		# >>> Grade_2_students = Student_Array( 'James',
+		# 									  'Philip',
+		# 									  'Tim',
+		# 									  'Albert',
+		# 									  'Seth',
+		# 									  'Sam' )
+
+		# >>> for student in Grade_2_students:
+		# ...     print(student)
+		# ...
+		# James
+		# Philip
+		# Tim
+		# Albert
+		# Seth
+		# Sam
+		# None # i.e it's NULL Pointer
+		# None
+		# None
+		# None
+
+# — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —
+
+		# >>> name = create_string_buffer(5)
+
+		# >>> name.raw
+		# b'\x00\x00\x00\x00\x00'
+
+		# >>> resize(name, 10)
+
+		# >>> name.raw
+		# b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+
+# — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —
+
+		# >>> name = create_string_buffer(b'James', 10)
+
+		# >>> name.raw
+		# b'James\x00\x00\x00\x00\x00'
+
+		# >>> memset(name, 0, len(name.raw))
+		# 4459271520
+
+		# >>> name.raw
+		# b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+
+		# >>> memset(name, ord('z'), len(name.raw))
+		# 4459271520
+
+		# >>> name.raw
+		# b'zzzzzzzzzz'
+
+# — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —
+
+		>>> name = create_string_buffer(b'Samuel')
+		>>> name_duplicate = create_string_buffer(10)
+
+		>>> name.raw
+		b'Samuel\x00'
+
+		>>> name_duplicate.raw
+		b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+
+		>>> memmove(name_duplicate, name, len(name.value))
+		4465608576
+
+		>>> name_duplicate.raw
+		b'Samuel\x00\x00\x00\x00'
+
+# — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —
 
 

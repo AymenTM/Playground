@@ -4,7 +4,7 @@
 
 import ctypes
 
-lib = ctypes.CDLL('./C_simple_example/_clib.so')
+lib = ctypes.CDLL('./C_example/_clib.so')
 
 print(lib.add(5, 5))
 print(lib.sub(5, 5))

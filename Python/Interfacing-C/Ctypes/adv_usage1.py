@@ -6,7 +6,7 @@ from ctypes import *
 
 
 # Import Shared Library
-lib = CDLL('./C_simple_example/_clib.so')
+lib = CDLL('./C_example/_clib.so')
 
 
 # Fix Return Types

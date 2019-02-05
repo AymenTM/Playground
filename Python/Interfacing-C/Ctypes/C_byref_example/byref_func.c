@@ -9,3 +9,9 @@ void ft_strcpy(char *dest, char *src)
     while (src[++i])
         dest[i] = src[i];
 }
+
+void divmod(int a, int b, int *div, int *mod)
+{
+	*div = a / b;
+	*mod = a % b;
+}

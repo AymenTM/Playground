@@ -6,7 +6,7 @@ import ctypes
 
 
 # Import Shared Library
-_libc = ctypes.CDLL('./C_adv_example/_fib.so')
+_libc = ctypes.CDLL('./C_example1/_fib.so')
 
 
 # Fix Return Types
