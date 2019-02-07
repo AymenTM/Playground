@@ -26,9 +26,8 @@ import libc
 
 # — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —
 
-# print(libc.atoi(b'2147483647'))
+# print(libc.atoi('2147483647'))
 # print(libc.strlen(b'2147483647'))
-print(libc.strstr(b'2147483647', b'48'))
-print(libc.strstr(b'', b'48'))
+# print(libc.strstr(b'2147483647', b'48'))
 
 # — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — —
