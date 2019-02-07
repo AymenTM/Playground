@@ -1,4 +1,7 @@
 
+# Script to Compile and Organize all .pyx Files in a Directory
+# This is basically like a C Makefile
+
 from distutils.core import setup
 from Cython.Build import cythonize
 import os
@@ -8,7 +11,7 @@ for file in os.listdir():
 
 	if os.path.isfile(file) and file.endswith('.pyx'):
 
-		setup(ext_modules=cythonize(file))
+		setup( ext_modules = cythonize(file) )
 
 		os.system(f'rm {file.split(".")[0]}.c')
 		os.system(f'mv build/lib*/*.so pyMod/{file.split(".")[0]}.so')
