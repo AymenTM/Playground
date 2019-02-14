@@ -1,20 +1,30 @@
 
-/* Variables in C */
+/* Variable Types, Storage Classes, Sizes in C */
 
 /* — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — */
 
-	char 	var;
-	int 	var;
-	float 	var;
-	double 	var;
+	char 		var;
+	int 		var;
+	float 		var;
+	double 		var;
 
 /* — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — */
 
-	char 	*var;
-	int 	*var;
-	float 	*var;
-	double 	*var;
-	void 	*var;
+	unsigned 	var;
+	signed 		var;
+
+/* — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — */
+
+	short 		var;
+	long 		var;
+	long long 	var;
+
+/* — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — */
+
+	const 		int a;
+	restrict 	int a;
+	volatile	int a;
+	_Atomic 	int a;
 
 /* — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — */
 
@@ -22,6 +32,14 @@
 	register 	int a;
 	static 		int a;
 	extern 		int a;
+
+/* — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — */
+
+	char 		*var;
+	int 		*var;
+	float 		*var;
+	double 		*var;
+	void 		*var;
 
 /* — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — */
 
@@ -79,7 +97,33 @@
 
 /* — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — */
 
+	volatile struct employee
+	{
+	    char *name;
+	    int   birthdate; 	/* name, birthdate, job_code, and salary are */
+	    int   job_code;  	/* treated as though declared with volatile. */
+	    float salary;
+	} a, b;          		/*  All members of a and b are volatile-qualified  */
+
+	struct employee2
+	{
+	    char *name;
+	    volatile int birthdate;  /*  Only this member is qualified    */
+	    int job_code;
+	    float salary;
+	} c, d;
+
+/* — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — */
+
+
+
+
+
+
 
 
 /* — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — */
+
+
+
 
