@@ -1,0 +1,10 @@
+
+New Concepts (from C):
+
+	- input/output
+	- classes
+		- constructors
+		- private, protected, public (properties, methods/functions)
+	- default parameters
+
+
