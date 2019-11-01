@@ -78,8 +78,7 @@
 
 #include <limits.h>
 #include <stdint.h>
-
-#include "libft.h"
+#include <stdio.h>
 
 
 /* MACROS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
@@ -307,16 +306,16 @@ char	*expose_ldouble(long double data, int oflag)
 int main(int ac, char **av)
 {
 
-	ft_printf("char:    %s\n", expose_char    (99     , O_SPACED /* | O_TRUNCATED | O_LITTLE_ENDIAN | O_BIG_ENDIAN */) );
-	ft_printf("short:   %s\n", expose_short   (999    , O_SPACED /* | O_TRUNCATED | O_LITTLE_ENDIAN | O_BIG_ENDIAN */) );
-	ft_printf("int:     %s\n", expose_int     (9999   , O_SPACED /* | O_TRUNCATED | O_LITTLE_ENDIAN | O_BIG_ENDIAN */) );
-	ft_printf("long:    %s\n", expose_long    (99999  , O_SPACED /* | O_TRUNCATED | O_LITTLE_ENDIAN | O_BIG_ENDIAN */) );
-	ft_printf("llong:   %s\n", expose_llong   (999999 , O_SPACED /* | O_TRUNCATED | O_LITTLE_ENDIAN | O_BIG_ENDIAN */) );
-	ft_printf("\n");
+	printf("char:    %s\n", expose_char    (99     , O_SPACED /* | O_TRUNCATED | O_LITTLE_ENDIAN | O_BIG_ENDIAN */) );
+	printf("short:   %s\n", expose_short   (999    , O_SPACED /* | O_TRUNCATED | O_LITTLE_ENDIAN | O_BIG_ENDIAN */) );
+	printf("int:     %s\n", expose_int     (9999   , O_SPACED /* | O_TRUNCATED | O_LITTLE_ENDIAN | O_BIG_ENDIAN */) );
+	printf("long:    %s\n", expose_long    (99999  , O_SPACED /* | O_TRUNCATED | O_LITTLE_ENDIAN | O_BIG_ENDIAN */) );
+	printf("llong:   %s\n", expose_llong   (999999 , O_SPACED /* | O_TRUNCATED | O_LITTLE_ENDIAN | O_BIG_ENDIAN */) );
+	printf("\n");
 
-	ft_printf("float:   %s\n", expose_float   (6.25, O_SPACED /* | O_LITTLE_ENDIAN | O_BIG_ENDIAN */) );
-	ft_printf("double:  %s\n", expose_double  (6.25, O_SPACED /* | O_LITTLE_ENDIAN | O_BIG_ENDIAN */) );
-	ft_printf("ldouble: %s\n", expose_ldouble (6.25, O_SPACED /* | O_LITTLE_ENDIAN | O_BIG_ENDIAN */) );
+	printf("float:   %s\n", expose_float   (6.25, O_SPACED /* | O_LITTLE_ENDIAN | O_BIG_ENDIAN */) );
+	printf("double:  %s\n", expose_double  (6.25, O_SPACED /* | O_LITTLE_ENDIAN | O_BIG_ENDIAN */) );
+	printf("ldouble: %s\n", expose_ldouble (6.25, O_SPACED /* | O_LITTLE_ENDIAN | O_BIG_ENDIAN */) );
 
 	(void)ac;
 	(void)av;
