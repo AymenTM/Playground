@@ -13,9 +13,9 @@
 
 /* MACROS  - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-#define range___(start, stop, step)         \
-	( intmax_t __start__ = (intmax_t)start; \
-		__start__ < (intmax_t)stop;         \
+#define range___(start, stop, step)              \
+	( intmax_t __start__ = (intmax_t)start;  \
+		__start__ < (intmax_t)stop;      \
 		__start__ += step )
 
 #define range_(start, stop) range___(start, stop, 1)
@@ -27,20 +27,20 @@
 /* TEMPLATE FUNCTION  - - - - - - - - - - - - - - - - - - - */
 
 /* Print memory representation of a given value */
-#define expose_(T)                                          \
-                                                            \
-	void expose_##T(T val)                                  \
-	{                                                       \
-		for range(sizeof(T))                                \
-		{                                                   \
-			for range(CHAR_BIT) {                           \
-				printf("%c", val & BIT(1) ? '1' : '0');     \
-			    val >>= 1;                                  \
-			}                                               \
-			printf(" ");                                    \
-		}                                                   \
-		printf("\n");                                       \
-	}                                                       \
+#define expose_(T)                                                       \
+                                                                         \
+	void expose_##T(T val)                                           \
+	{                                                                \
+		for range(sizeof(T))                                     \
+		{                                                        \
+			for range(CHAR_BIT) {                            \
+				printf("%c", val & BIT(1) ? '1' : '0');  \
+			    val >>= 1;                                   \
+			}                                                \
+			printf(" ");                                     \
+		}                                                        \
+		printf("\n");                                            \
+	}
 
 
 /* FUNCTION TEMPLATE INSTANTIATION - - - - - - - - - - - - - */
