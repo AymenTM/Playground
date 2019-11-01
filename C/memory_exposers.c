@@ -119,6 +119,28 @@ enum e_expose_function_suite_flags
 };
 
 
+/* UTILITY FUNCTIONS - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+char	*ft_strrev(char *str)
+{
+	inT	i;
+	int	j;
+	char	tmp;
+
+	j = 0;
+	while (str[j])
+		++j;
+	i = -1;
+	while (--j > ++i)
+	{
+		tmp = str[i];
+		str[i] = str[j];
+		str[j] = tmp;
+	}
+	return (str);
+}
+
+
 /* FUNCTION DEFINITIONS - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 char	*expose_8bit(__int8_t data, int flags)
