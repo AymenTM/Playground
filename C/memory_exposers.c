@@ -79,6 +79,8 @@
 #include <limits.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 
 /* MACROS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
@@ -123,7 +125,7 @@ enum e_expose_function_suite_flags
 
 char	*ft_strrev(char *str)
 {
-	inT	i;
+	int	i;
 	int	j;
 	char	tmp;
 
@@ -335,9 +337,9 @@ int main(int ac, char **av)
 	printf("llong:   %s\n", expose_llong   (999999 , O_SPACED /* | O_TRUNCATED | O_LITTLE_ENDIAN | O_BIG_ENDIAN */) );
 	printf("\n");
 
-	printf("float:   %s\n", expose_float   (6.25, O_SPACED /* | O_LITTLE_ENDIAN | O_BIG_ENDIAN */) );
-	printf("double:  %s\n", expose_double  (6.25, O_SPACED /* | O_LITTLE_ENDIAN | O_BIG_ENDIAN */) );
-	printf("ldouble: %s\n", expose_ldouble (6.25, O_SPACED /* | O_LITTLE_ENDIAN | O_BIG_ENDIAN */) );
+	printf("float:   %s\n", expose_float    ( 6.25, O_SPACED /* | O_LITTLE_ENDIAN | O_BIG_ENDIAN */) );
+	printf("double:  %s\n", expose_double   (-6.25, O_SPACED /* | O_LITTLE_ENDIAN | O_BIG_ENDIAN */) );
+	printf("ldouble: %s\n", expose_ldouble  ( 6.25, O_SPACED /* | O_LITTLE_ENDIAN | O_BIG_ENDIAN */) );
 
 	(void)ac;
 	(void)av;
@@ -346,15 +348,12 @@ int main(int ac, char **av)
 }
 
 /* OUTPUT:
-
 char:    01100011
 short:   00000011 11100111
 int:     00000000 00000000 00100111 00001111
 long:    00000000 00000000 00000000 00000000 00000000 00000001 10000110 10011111
 llong:   00000000 00000000 00000000 00000000 00000000 00001111 01000010 00111111
-
 float:   0 10000001 10010000000000000000000
-double:  0 10000000001 1001000000000000000000000000000000000000000000000000
+double:  1 10000000001 1001000000000000000000000000000000000000000000000000
 ldouble: 0 1000000000000010 100100000000000000000000000000000000000000000000000000000000000
-
 */
