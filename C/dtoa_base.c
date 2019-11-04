@@ -25,6 +25,7 @@ char	*ft_dtoa_base(double data, char *base, int width, int precision)
 		result = (t_bigint)ft_utoa_base(flt.mantissa | IEEE_754_DOUBLE_IMPLICIT_BIT, DECIMAL_BASE, 0);
 		flt.exponent -= IEEE_754_DOUBLE_BIAS;
 	}
+	
 	exp = flt.exponent - IEEE_754_DOUBLE_MANTISSA_BITS;
 	if (exp > 0)
 		while (exp-- > 0)
@@ -32,10 +33,12 @@ char	*ft_dtoa_base(double data, char *base, int width, int precision)
 	else
 		while (exp++ < 0)
 			result = bigint_divfre(result, 2, base, 1);
+	
 	result = bigint_roundfre(result, base, ((precision >= 0) ? precision : 6), 1);
 	result = ft_strprepend(result, ft_padding(flt.sign + width - ft_strlen(result), '0'), 1, 1);
 	if (flt.sign)
 		result = ft_strprepend(result, "-", 1, 0);
+	
 	return (result);
 }
 
@@ -105,9 +108,9 @@ char	*ft_dtoa_base(double data, char *base, int width, int precision)
 	 * can grow or shrink as much as needed according to the number it is
 	 * trying to represent. It is implemented such that it can also represent
 	 * numbers with decimals, so where there are columns representing
-	 * 10^-1, 10^-2, 10^-3, ... and so on. //
+	 * base^-1, base^-2, base^-3, ... and so on. //
 
-	// We conventiantly add to the exponent the number of shifts to the
+	// We add to the exponent the number of shifts to the
 	 * right that we must do //
 	exp = flt.exponent - IEEE_754_DOUBLE_MANTISSA_BITS;
 
@@ -120,7 +123,7 @@ char	*ft_dtoa_base(double data, char *base, int width, int precision)
 		while (exp++ < 0)
 			result = bigint_divfre(result, 2, base, 1);
 
-	// Round to desired precision //
+	// Round to the desired precision //
 	result = bigint_roundfre(result, base, ((precision >= 0) ? precision : 6), 1);
 
 	// Prepend with 0's as desired //
