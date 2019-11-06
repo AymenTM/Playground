@@ -6,7 +6,7 @@
 /*   By: akharrou <akharrou@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 23:07:44 by akharrou          #+#    #+#             */
-/*   Updated: 2019/11/05 23:33:37 by akharrou         ###   ########.fr       */
+/*   Updated: 2019/11/05 23:35:08 by akharrou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 **
 **         T data              Floating-point (`l` or `r`) value.
 **
-**         char *base          Base in which it is desired to be
-**                             stringified.
+**         char *base          Desired base in which to represent
+**                             the value.
 **
 **         int width           Minimum total width desired.
 **
