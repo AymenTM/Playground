@@ -6,7 +6,7 @@
 /*   By: akharrou <akharrou@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 12:41:37 by akharrou          #+#    #+#             */
-/*   Updated: 2019/11/05 20:58:40 by akharrou         ###   ########.fr       */
+/*   Updated: 2019/11/05 22:19:35 by akharrou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@
 # define IEEE_754_FLOAT_INF(exponent, mantissa)        ((exponent == IEEE_754_FLOAT_EXPONENT_MAX) && (mantissa == 0))
 # define IEEE_754_FLOAT_NAN(exponent, mantissa)        ((exponent == IEEE_754_FLOAT_EXPONENT_MAX) && (mantissa != 0))
 
-# if IS_BIG_ENDIAN == 1
+# if (IS_BIG_ENDIAN == 1)
 	typedef union {
 		float value;
 		struct {
@@ -113,7 +113,7 @@
 # define IEEE_754_DOUBLE_INF(exponent, mantissa)        ((exponent == IEEE_754_DOUBLE_EXPONENT_MAX) && (mantissa == 0))
 # define IEEE_754_DOUBLE_NAN(exponent, mantissa)        ((exponent == IEEE_754_DOUBLE_EXPONENT_MAX) && (mantissa != 0))
 
-# if IS_BIG_ENDIAN == 1
+# if (IS_BIG_ENDIAN == 1)
 	typedef union {
 		double value;
 		struct {
@@ -138,8 +138,9 @@
 **  Extended Precision (long double)  --  Standard IEEE 754 Floating-point Specification
 */
 
-# define IEEE_754_LDOUBLE_MANTISSA_BITS (63)
 # define IEEE_754_LDOUBLE_EXPLICIT_BITS (1)
+
+# define IEEE_754_LDOUBLE_MANTISSA_BITS (63 + IEEE_754_LDOUBLE_EXPLICIT_BITS)
 # define IEEE_754_LDOUBLE_EXPONENT_BITS (15)
 # define IEEE_754_LDOUBLE_SIGN_BITS     (1)
 
@@ -151,20 +152,20 @@
 # define IEEE_754_LDOUBLE_INF(exponent, mantissa)        ((exponent == IEEE_754_LDOUBLE_EXPONENT_MAX) && (mantissa == 0))
 # define IEEE_754_LDOUBLE_NAN(exponent, mantissa)        ((exponent == IEEE_754_LDOUBLE_EXPONENT_MAX) && (mantissa != 0))
 
-# if IS_BIG_ENDIAN == 1
+# if (IS_BIG_ENDIAN == 1)
 	typedef union {
 		long double value;
 		struct {
 			__int8_t   sign     : IEEE_754_LDOUBLE_SIGN_BITS;
 			__int16_t  exponent : IEEE_754_LDOUBLE_EXPONENT_BITS;
-			__uint64_t mantissa : IEEE_754_LDOUBLE_MANTISSA_BITS + IEEE_754_LDOUBLE_EXPLICIT_BITS;
+			__uint64_t mantissa : IEEE_754_LDOUBLE_MANTISSA_BITS;
 		};
 	} IEEE_754_ldouble;
 # else
 	typedef union {
 		long double value;
 		struct {
-			__uint64_t mantissa : IEEE_754_LDOUBLE_MANTISSA_BITS + IEEE_754_LDOUBLE_EXPLICIT_BITS;
+			__uint64_t mantissa : IEEE_754_LDOUBLE_MANTISSA_BITS;
 			__int16_t  exponent : IEEE_754_LDOUBLE_EXPONENT_BITS;
 			__int8_t   sign     : IEEE_754_LDOUBLE_SIGN_BITS;
 		};

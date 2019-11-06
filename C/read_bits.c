@@ -6,7 +6,7 @@
 /*   By: akharrou <akharrou@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 21:50:54 by akharrou          #+#    #+#             */
-/*   Updated: 2019/11/05 21:06:53 by akharrou         ###   ########.fr       */
+/*   Updated: 2019/11/05 22:19:10 by akharrou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,27 @@
 **    SYNOPSIS
 **         #include <libft.h>
 **
-**         char *readbits_integral( void *integral, size_t size, int oflags );
+**         char * readbits_integral( void *integral, size_t size, int oflags );
 **
-**         char *readbits_8bit( __int8_t data, int flags );
-**         char *readbits_16bit( __int16_t data, int flags );
-**         char *readbits_32bit( __int32_t data, int flags );
-**         char *readbits_64bit( __int64_t data, int flags );
-**         char *readbits_128bit( __int128_t data, int flags );
+**         char * readbits_IEEE_754_float( IEEE_754_float data , int oflag );
+**         char * readbits_IEEE_754_double( IEEE_754_double data , int oflag );
+**         char * readbits_IEEE_754_ldouble( IEEE_754_ldouble data , int oflag );
 **
-**         MACRO --  char *readbits_char( char data, int oflags );
-**         MACRO --  char *readbits_short( short data, int oflags );
-**         MACRO --  char *readbits_int( int data, int oflags );
-**         MACRO --  char *readbits_long( long data, int oflags );
-**         MACRO --  char *readbits_llong( long long data, int oflags );
+**         char * readbits_8bit( __int8_t data , int oflags );
+**         char * readbits_16bit( __int16_t data , int oflags );
+**         char * readbits_32bit( __int32_t data , int oflags );
+**         char * readbits_64bit( __int64_t data , int oflags );
+**         char * readbits_128bit( __int128_t data , int oflags );
 **
-**         char *readbits_float( float data, int oflag );
-**         char *readbits_double( double data, int oflag );
-**         char *readbits_ldouble( long double data, int oflag );
+**         char * readbits_char( char data , int oflags );
+**         char * readbits_short( short data , int oflags );
+**         char * readbits_int( int data , int oflags );
+**         char * readbits_long( long data , int oflags );
+**         char * readbits_llong( long long data , int oflags );
+**
+**         char * readbits_float( float data , int oflags );
+**         char * readbits_double( double data , int oflags );
+**         char * readbits_ldouble( long double data , int oflags );
 **
 **    PARAMETERS
 **
@@ -73,7 +77,6 @@
 **         Returns a the memory representation as a null-terminated string.
 */
 
-
 /* HEADERS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include <limits.h>
@@ -84,32 +87,33 @@
 
 #include "IEEE_754_types.h"
 
-
 /* MACROS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #define BIT(i) (1L << i)
 
-
 /* PROTOTYPES - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-char		*readbits_integral( void *integral, size_t size, int oflags );
+char	*readbits_integral         ( void *integral, size_t size, int oflags );
 
-char		*readbits_8bit( __int8_t data, int flags );
-char		*readbits_16bit( __int16_t data, int flags );
-char		*readbits_32bit( __int32_t data, int flags );
-char		*readbits_64bit( __int64_t data, int flags );
-char		*readbits_128bit( __int128_t data, int flags );
+char	*readbits_IEEE_754_float   ( IEEE_754_float   data , int oflag );
+char	*readbits_IEEE_754_double  ( IEEE_754_double  data , int oflag );
+char	*readbits_IEEE_754_ldouble ( IEEE_754_ldouble data , int oflag );
 
-char		*readbits_float( float data, int oflag );
-char		*readbits_double( double data, int oflag );
-char		*readbits_ldouble( long double data, int oflag );
+char	*readbits_8bit             ( __int8_t    data , int oflags );
+char	*readbits_16bit            ( __int16_t   data , int oflags );
+char	*readbits_32bit            ( __int32_t   data , int oflags );
+char	*readbits_64bit            ( __int64_t   data , int oflags );
+char	*readbits_128bit           ( __int128_t  data , int oflags );
 
-# define	readbits_char(data, flags)  readbits_8bit  (data, flags)
-# define	readbits_short(data, flags) readbits_16bit (data, flags)
-# define	readbits_int(data, flags)   readbits_32bit (data, flags)
-# define	readbits_long(data, flags)  readbits_64bit (data, flags)
-# define	readbits_llong(data, flags) readbits_64bit (data, flags)
+char	*readbits_char             ( char        data , int oflags );
+char	*readbits_short            ( short       data , int oflags );
+char	*readbits_int              ( int         data , int oflags );
+char	*readbits_long             ( long        data , int oflags );
+char	*readbits_llong            ( long long   data , int oflags );
 
+char	*readbits_float            ( float       data , int oflags );
+char	*readbits_double           ( double      data , int oflags );
+char	*readbits_ldouble          ( long double data , int oflags );
 
 /* ENUMS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
@@ -121,7 +125,6 @@ enum e_readbits_function_suite_flags
 	O_LITTLE_ENDIAN = (1 << 2),
 	O_BIG_ENDIAN    = (1 << 3),
 };
-
 
 /* UTILITY FUNCTIONS - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
@@ -144,48 +147,7 @@ char	*ft_strrev(char *str)
 	return (str);
 }
 
-
-/* FUNCTION DEFINITIONS - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-
-char	*readbits_8bit(__int8_t data, int flags)
-{
-	__int8_t tmp;
-
-	tmp = data;
-	return (readbits_integral(&tmp, sizeof(__int8_t), flags));
-}
-
-char	*readbits_16bit(__int16_t data, int flags)
-{
-	__int16_t tmp;
-
-	tmp = data;
-	return (readbits_integral(&tmp, sizeof(__int16_t), flags));
-}
-
-char	*readbits_32bit(__int32_t data, int flags)
-{
-	__int32_t tmp;
-
-	tmp = data;
-	return (readbits_integral(&tmp, sizeof(__int32_t), flags));
-}
-
-char	*readbits_64bit(__int64_t data, int flags)
-{
-	__int64_t tmp;
-
-	tmp = data;
-	return (readbits_integral(&tmp, sizeof(__int64_t), flags));
-}
-
-char	*readbits_128bit(__int128_t data, int flags)
-{
-	__int128_t tmp;
-
-	tmp = data;
-	return (readbits_integral(&tmp, sizeof(__int128_t), flags));
-}
+/* GENERALIZED GENERIC FUNCTIONS - - - - - - - - - - - - - - - - - - - - - - */
 
 char	*readbits_integral(void *integral, size_t size, int oflags)
 {
@@ -219,90 +181,55 @@ char	*readbits_integral(void *integral, size_t size, int oflags)
 	return (buf);
 }
 
-char	*readbits_float(float data, int oflag)
-{
-	IEEE_754_float flt;
-	size_t	bufsize;
-	size_t	i;
-	char	*buf;
+# define make_readbits_floating_type(T, BITLEN, MANTISSA, EXPONENT) \
+                                                                    \
+	char	*readbits_##T( T flt, int oflags )                      \
+	{                                                               \
+		char	*buf;                                               \
+		size_t	bufsize;                                            \
+		size_t	i;                                                  \
+                                                                    \
+		bufsize = (BITLEN) + ((oflags & O_SPACED) ? 2 : 0) + 1;     \
+		if (!(buf = malloc(bufsize)))                               \
+			return (NULL);                                          \
+		buf[--bufsize] = '\0';                                      \
+		i = 0;                                                      \
+		while (i < MANTISSA)                                        \
+			buf[--bufsize] = flt.mantissa & BIT(i++) ? '1' : '0';   \
+		if (oflags & O_SPACED)                                      \
+			buf[--bufsize] = ' ';                                   \
+		i = 0;                                                      \
+		while (i < EXPONENT)                                        \
+			buf[--bufsize] = flt.exponent & BIT(i++) ? '1' : '0';   \
+		if (oflags & O_SPACED)                                      \
+			buf[--bufsize] = ' ';                                   \
+		buf[--bufsize] = flt.sign ? '1' : '0';                      \
+		if (oflags & O_LITTLE_ENDIAN)                               \
+			ft_strrev(buf);                                         \
+		return (buf);                                               \
+	}
 
-	flt.value = data;
-	bufsize = sizeof(float) * 8 + ((oflag & O_SPACED) ? 2 : 0) + 1;
-	if (!(buf = malloc(bufsize)))
-		return (NULL);
-	buf[--bufsize] = '\0';
-	i = 0;
-	while (i < 23)
-		buf[--bufsize] = flt.mantissa & BIT(i++) ? '1' : '0';
-	if (oflag & O_SPACED)
-		buf[--bufsize] = ' ';
-	i = 0;
-	while (i < 8)
-		buf[--bufsize] = flt.exponent & BIT(i++) ? '1' : '0';
-	if (oflag & O_SPACED)
-		buf[--bufsize] = ' ';
-	buf[--bufsize] = flt.sign ? '1' : '0';
-	if (oflag & O_LITTLE_ENDIAN)
-		ft_strrev(buf);
-	return (buf);
-}
+/* SPECIFIC FUNCTIONS - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-char	*readbits_double(double data, int oflag)
-{
-	IEEE_754_double flt;
-	char	*buf;
-	size_t	bufsize;
-	size_t	i;
+make_readbits_floating_type( IEEE_754_float   ,  sizeof(float) * CHAR_BIT , IEEE_754_FLOAT_MANTISSA_BITS   , IEEE_754_FLOAT_EXPONENT_BITS   )
+make_readbits_floating_type( IEEE_754_double  , sizeof(double) * CHAR_BIT , IEEE_754_DOUBLE_MANTISSA_BITS  , IEEE_754_DOUBLE_EXPONENT_BITS  )
+make_readbits_floating_type( IEEE_754_ldouble ,             10 * CHAR_BIT , IEEE_754_LDOUBLE_MANTISSA_BITS , IEEE_754_LDOUBLE_EXPONENT_BITS )
 
-	flt.value = data;
-	bufsize = sizeof(double) * 8 + ((oflag & O_SPACED) ? 2 : 0) + 1;
-	if (!(buf = malloc(bufsize)))
-		return (NULL);
-	buf[--bufsize] = '\0';
-	i = 0;
-	while (i < 52)
-		buf[--bufsize] = flt.mantissa & BIT(i++) ? '1' : '0';
-	if (oflag & O_SPACED)
-		buf[--bufsize] = ' ';
-	i = 0;
-	while (i < 11)
-		buf[--bufsize] = flt.exponent & BIT(i++) ? '1' : '0';
-	if (oflag & O_SPACED)
-		buf[--bufsize] = ' ';
-	buf[--bufsize] = flt.sign ? '1' : '0';
-	if (oflag & O_LITTLE_ENDIAN)
-		ft_strrev(buf);
-	return (buf);
-}
+char	*readbits_float   ( float       data , int oflags ) { return ( readbits_IEEE_754_float   ( (IEEE_754_float)   { data }, oflags ) ); }
+char	*readbits_double  ( double      data , int oflags ) { return ( readbits_IEEE_754_double  ( (IEEE_754_double)  { data }, oflags ) ); }
+char	*readbits_ldouble ( long double data , int oflags ) { return ( readbits_IEEE_754_ldouble ( (IEEE_754_ldouble) { data }, oflags ) ); }
 
-char	*readbits_ldouble(long double data, int oflag)
-{
-	IEEE_754_ldouble flt;
-	char	*buf;
-	size_t	bufsize;
-	size_t	i;
+char	*readbits_8bit    ( __int8_t    data , int oflags ) { return ( readbits_integral ( &data, sizeof( __int8_t   ) , oflags ) ); }
+char	*readbits_16bit   ( __int16_t   data , int oflags ) { return ( readbits_integral ( &data, sizeof( __int16_t  ) , oflags ) ); }
+char	*readbits_32bit   ( __int32_t   data , int oflags ) { return ( readbits_integral ( &data, sizeof( __int32_t  ) , oflags ) ); }
+char	*readbits_64bit   ( __int64_t   data , int oflags ) { return ( readbits_integral ( &data, sizeof( __int64_t  ) , oflags ) ); }
+char	*readbits_128bit  ( __int128_t  data , int oflags ) { return ( readbits_integral ( &data, sizeof( __int128_t ) , oflags ) ); }
 
-	flt.value = data;
-	bufsize = 80 + ((oflag & O_SPACED) ? 2 : 0) + 1;
-	if (!(buf = malloc(bufsize)))
-		return (NULL);
-	buf[--bufsize] = '\0';
-	i = 0;
-	while (i < 64)
-		buf[--bufsize] = flt.mantissa & BIT(i++) ? '1' : '0';
-	if (oflag & O_SPACED)
-		buf[--bufsize] = ' ';
-	i = 0;
-	while (i < 15)
-		buf[--bufsize] = flt.exponent & BIT(i++) ? '1' : '0';
-	if (oflag & O_SPACED)
-		buf[--bufsize] = ' ';
-	buf[--bufsize] = flt.sign ? '1' : '0';
-	if (oflag & O_LITTLE_ENDIAN)
-		ft_strrev(buf);
-	return (buf);
-}
-
+char	*readbits_char    ( char        data , int oflags ) { return ( readbits_integral ( &data, sizeof( char       ) , oflags ) ); }
+char	*readbits_short   ( short       data , int oflags ) { return ( readbits_integral ( &data, sizeof( short      ) , oflags ) ); }
+char	*readbits_int     ( int         data , int oflags ) { return ( readbits_integral ( &data, sizeof( int        ) , oflags ) ); }
+char	*readbits_long    ( long        data , int oflags ) { return ( readbits_integral ( &data, sizeof( long       ) , oflags ) ); }
+char	*readbits_llong   ( long long   data , int oflags ) { return ( readbits_integral ( &data, sizeof( long long  ) , oflags ) ); }
 
 /* TEST MAIN - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
