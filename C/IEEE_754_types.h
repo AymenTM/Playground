@@ -6,7 +6,7 @@
 /*   By: akharrou <akharrou@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 12:41:37 by akharrou          #+#    #+#             */
-/*   Updated: 2019/11/03 22:50:41 by akharrou         ###   ########.fr       */
+/*   Updated: 2019/11/05 20:58:40 by akharrou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,7 @@
 **  Macro(s).
 */
 
-# ifndef IS_BIG_ENDIAN
-#  define IS_BIG_ENDIAN ((!*(unsigned char *)&(uint16_t){1}))
-# endif
+# define IS_BIG_ENDIAN (0)
 
 /*
 ** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -77,7 +75,7 @@
 # define IEEE_754_FLOAT_INF(exponent, mantissa)        ((exponent == IEEE_754_FLOAT_EXPONENT_MAX) && (mantissa == 0))
 # define IEEE_754_FLOAT_NAN(exponent, mantissa)        ((exponent == IEEE_754_FLOAT_EXPONENT_MAX) && (mantissa != 0))
 
-# if IS_BIG_ENDIAN
+# if IS_BIG_ENDIAN == 1
 	typedef union {
 		float value;
 		struct {
@@ -115,7 +113,7 @@
 # define IEEE_754_DOUBLE_INF(exponent, mantissa)        ((exponent == IEEE_754_DOUBLE_EXPONENT_MAX) && (mantissa == 0))
 # define IEEE_754_DOUBLE_NAN(exponent, mantissa)        ((exponent == IEEE_754_DOUBLE_EXPONENT_MAX) && (mantissa != 0))
 
-# if IS_BIG_ENDIAN
+# if IS_BIG_ENDIAN == 1
 	typedef union {
 		double value;
 		struct {
@@ -153,7 +151,7 @@
 # define IEEE_754_LDOUBLE_INF(exponent, mantissa)        ((exponent == IEEE_754_LDOUBLE_EXPONENT_MAX) && (mantissa == 0))
 # define IEEE_754_LDOUBLE_NAN(exponent, mantissa)        ((exponent == IEEE_754_LDOUBLE_EXPONENT_MAX) && (mantissa != 0))
 
-# if IS_BIG_ENDIAN
+# if IS_BIG_ENDIAN == 1
 	typedef union {
 		long double value;
 		struct {
