@@ -6,7 +6,7 @@
 /*   By: akharrou <akharrou@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 23:07:44 by akharrou          #+#    #+#             */
-/*   Updated: 2019/11/05 23:42:18 by akharrou         ###   ########.fr       */
+/*   Updated: 2019/11/05 23:43:06 by akharrou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,8 +150,8 @@ char	*ft_dtoa_base(double data, char *base, int width, int precision)
 
 	            <-- ... 2^5, 2^4, 2^3, 2^2, 2^1, 2^0
 
-	Now we cannot shift bits in the integer type, as that would cause
-	us to lose the bits past the column representing 2^0, and we
+	Now we cannot shift the bits in the integer type, as that would
+	cause us to lose the bits past the column representing 2^0, and we
 	certainly can't store it again in a floating-point type, AND there
 	is no type that has an encoding where each bit is in a column
 	representing 2^-1, 2^-2, 2^-3, ... so you have to create a custom
