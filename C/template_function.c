@@ -27,9 +27,9 @@
 /* TEMPLATE FUNCTION  - - - - - - - - - - - - - - - - - - - */
 
 /* Print memory representation of a given value */
-#define expose_(T)                                                       \
+#define readbits_(T)                                                       \
                                                                          \
-	void expose_##T(T val)                                           \
+	void readbits_##T(T val)                                           \
 	{                                                                \
 		for range(sizeof(T))                                     \
 		{                                                        \
@@ -45,22 +45,22 @@
 
 /* FUNCTION TEMPLATE INSTANTIATION - - - - - - - - - - - - - */
 
-expose_(char)
-expose_(short)
-expose_(int)
-expose_(long)
-expose_(__uint128_t)
+readbits_(char)
+readbits_(short)
+readbits_(int)
+readbits_(long)
+readbits_(__uint128_t)
 
 
 /* TEST MAIN - - - - - - - - - - - - - - - - - - - - - - - - */
 
 int		main(void)
 {
-	expose_char         (99);
-	expose_short        (999);
-	expose_int          (9999);
-	expose_long         (99999);
-	expose___uint128_t  (999999);
+	readbits_char         (99);
+	readbits_short        (999);
+	readbits_int          (9999);
+	readbits_long         (99999);
+	readbits___uint128_t  (999999);
 
 	return (0);
 }
