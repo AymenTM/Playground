@@ -6,7 +6,7 @@
 /*   By: akharrou <akharrou@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 23:07:44 by akharrou          #+#    #+#             */
-/*   Updated: 2019/11/05 23:35:08 by akharrou         ###   ########.fr       */
+/*   Updated: 2019/11/05 23:36:17 by akharrou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,8 @@
 **                             default to 6.
 **
 **    DESCRIPTION
-**         Turns the value of a floating-point type to a string in
-**         the given `base` with the given `precision` in the desired
-**         `width`.
+**         Stringifies the value of a floating-point type in the given
+**         `base` with the given `precision` in the desired `width`.
 **
 **    RETURN VALUES
 **         Returns a null-terminated string representing the
