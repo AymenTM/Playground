@@ -181,32 +181,32 @@ char	*readbits_integral(void *integral, size_t size, int oflags)
 	return (buf);
 }
 
-# define make_readbits_floating_type(T, BITLEN, MANTISSA, EXPONENT) \
-                                                                    \
-	char	*readbits_##T( T flt, int oflags )                      \
-	{                                                               \
-		char	*buf;                                               \
-		size_t	bufsize;                                            \
-		size_t	i;                                                  \
-                                                                    \
-		bufsize = (BITLEN) + ((oflags & O_SPACED) ? 2 : 0) + 1;     \
-		if (!(buf = malloc(bufsize)))                               \
+# define make_readbits_floating_type(T, BITLEN, MANTISSA, EXPONENT)             \
+                                                                                \
+	char	*readbits_##T( T flt, int oflags )                              \
+	{                                                                       \
+		char	*buf;                                                   \
+		size_t	bufsize;                                                \
+		size_t	i;                                                      \
+                                                                                \
+		bufsize = (BITLEN) + ((oflags & O_SPACED) ? 2 : 0) + 1;         \
+		if (!(buf = malloc(bufsize)))                                   \
 			return (NULL);                                          \
-		buf[--bufsize] = '\0';                                      \
-		i = 0;                                                      \
-		while (i < MANTISSA)                                        \
+		buf[--bufsize] = '\0';                                          \
+		i = 0;                                                          \
+		while (i < MANTISSA)                                            \
 			buf[--bufsize] = flt.mantissa & BIT(i++) ? '1' : '0';   \
-		if (oflags & O_SPACED)                                      \
+		if (oflags & O_SPACED)                                          \
 			buf[--bufsize] = ' ';                                   \
-		i = 0;                                                      \
-		while (i < EXPONENT)                                        \
+		i = 0;                                                          \
+		while (i < EXPONENT)                                            \
 			buf[--bufsize] = flt.exponent & BIT(i++) ? '1' : '0';   \
-		if (oflags & O_SPACED)                                      \
+		if (oflags & O_SPACED)                                          \
 			buf[--bufsize] = ' ';                                   \
-		buf[--bufsize] = flt.sign ? '1' : '0';                      \
-		if (oflags & O_LITTLE_ENDIAN)                               \
+		buf[--bufsize] = flt.sign ? '1' : '0';                          \
+		if (oflags & O_LITTLE_ENDIAN)                                   \
 			ft_strrev(buf);                                         \
-		return (buf);                                               \
+		return (buf);                                                   \
 	}
 
 /* SPECIFIC FUNCTIONS - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
