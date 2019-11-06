@@ -6,7 +6,7 @@
 /*   By: akharrou <akharrou@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 23:07:44 by akharrou          #+#    #+#             */
-/*   Updated: 2019/11/05 23:36:33 by akharrou         ###   ########.fr       */
+/*   Updated: 2019/11/05 23:42:18 by akharrou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ char	*ft_dtoa_base(double data, char *base, int width, int precision)
 	Note that the endianness will effect the order of the bit sections
 	of the floating point types; this is handled in the header, just
 	make sure to turn the `IS_BIG_ENDIAN` macro on (1) or off (0) based
-	on the machine's architecture.
+	on the machine's endianness.
 
   COMMENT:
 
