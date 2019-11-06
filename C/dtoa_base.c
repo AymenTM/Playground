@@ -6,13 +6,13 @@
 /*   By: akharrou <akharrou@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 23:07:44 by akharrou          #+#    #+#             */
-/*   Updated: 2019/11/05 23:33:10 by akharrou         ###   ########.fr       */
+/*   Updated: 2019/11/05 23:33:37 by akharrou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*
 **    NAME
-**         ft_dtoa_base -- stringify a floating-point type value
+**         ft_dtoa_base -- stringify floating-point type values
 **
 **    SYNOPSIS
 **         #include <libft.h>
