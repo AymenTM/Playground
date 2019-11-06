@@ -6,7 +6,7 @@
 /*   By: akharrou <akharrou@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 23:07:44 by akharrou          #+#    #+#             */
-/*   Updated: 2019/11/05 23:43:06 by akharrou         ###   ########.fr       */
+/*   Updated: 2019/11/05 23:44:47 by akharrou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,13 +158,13 @@ char	*ft_dtoa_base(double data, char *base, int width, int precision)
 	type that can do that encoding.
 
 	Once the type is implemented go ahead and convert the the mantissa
-	held in the integer into the custom type and shift the number by
+	held in the integer into the custom type and shift the value by
 	the amount of mantissa bits; this can be done by multiplying the
 	number by 2^{-mantissa_bits}; or incrementally dividing the number
 	by 2 as many as 'mantissa_bits' times.
 
-	The exponent might be positive so the correction right shifts might
-	cancel out, so we subtract from the exponent the correction shifts
-	before any calculation to save us some computation.
+	The exponent might be positive so the "correction right shifts" might
+	cancel out with the positive exponent, so we subtract from the exponent
+	the "correction shifts" before any calculation to save us some computation.
 
 */
