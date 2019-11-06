@@ -6,7 +6,7 @@
 /*   By: akharrou <akharrou@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 23:07:44 by akharrou          #+#    #+#             */
-/*   Updated: 2019/11/05 23:36:17 by akharrou         ###   ########.fr       */
+/*   Updated: 2019/11/05 23:36:33 by akharrou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@
 **         `base` with the given `precision` in the desired `width`.
 **
 **    RETURN VALUES
-**         Returns a null-terminated string representing the
-**         floating-point value ; or NULL on error.
+**         Returns a null-terminated string representing the floating-point
+**         value ; or NULL on error.
 */
 
 #include "Libft/Includes/bigint.h"
