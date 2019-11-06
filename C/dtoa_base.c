@@ -6,13 +6,13 @@
 /*   By: akharrou <akharrou@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 23:07:44 by akharrou          #+#    #+#             */
-/*   Updated: 2019/11/05 23:14:13 by akharrou         ###   ########.fr       */
+/*   Updated: 2019/11/05 23:33:10 by akharrou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*
 **    NAME
-**         ft_dtoa_base -- stringify floating-point type value
+**         ft_dtoa_base -- stringify a floating-point type value
 **
 **    SYNOPSIS
 **         #include <libft.h>
@@ -22,19 +22,25 @@
 **
 **    PARAMETERS
 **
-**         double data         Brief.
+**         T data              Floating-point (`l` or `r`) value.
 **
-**         char *base          Brief.
+**         char *base          Base in which it is desired to be
+**                             stringified.
 **
-**         int width           Brief.
+**         int width           Minimum total width desired.
 **
-**         int precision       Brief.
+**         int precision       Precision desired; if a negative
+**                             value is passed, the precision will
+**                             default to 6.
 **
 **    DESCRIPTION
-**         Description.
+**         Turns the value of a floating-point type to a string in
+**         the given `base` with the given `precision` in the desired
+**         `width`.
 **
 **    RETURN VALUES
-**         If successful returns 0; otherwise -1.
+**         Returns a null-terminated string representing the
+**         floating-point value ; or NULL on error.
 */
 
 #include "Libft/Includes/bigint.h"
@@ -71,7 +77,7 @@ char	*ft_dtoa_base(double data, char *base, int width, int precision)
 			ft_strdup("QNaN") : ft_strdup("SNaN"));
 	}
 
-	/* Case #4: Denormalized (Subnormals) */
+	/* Case #4: Denormalized (Subnormal) */
 	else if IEEE_754_DOUBLE_SUBNORMALS(flt.exponent, flt.mantissa)
 	{
 		flt.exponent = -IEEE_754_DOUBLE_BIAS + 1;
@@ -84,7 +90,7 @@ char	*ft_dtoa_base(double data, char *base, int width, int precision)
 	}
 
 	/* Convert the Mantissa into the `bigint` Type */
-	/* or `|` the implicit bit to the mantissa if necessary */
+	/* or `|` the implicit bit with the mantissa if necessary */
 	result =
 		IEEE_754_DOUBLE_SUBNORMALS(flt.exponent, flt.mantissa) ?
 			ft_utoa_base( flt.mantissa | 0                            , DECIMAL_BASE, 0) :
@@ -93,7 +99,7 @@ char	*ft_dtoa_base(double data, char *base, int width, int precision)
 	/* Add number of times we must shift (to the right) the mantissa bits */
 	exp = flt.exponent - IEEE_754_DOUBLE_MANTISSA_BITS;
 
-	/* Shift Mantissa Bits to Correct Positions & Multiply with 2^{X} */
+	/* Shift Mantissa Bits to Correct Positions & Multiply/Divide with 2^{ +/- X } */
 	if (exp > 0)
 		while (exp-- > 0)
 			result = bigint_mulfre(result, 2, base, 1);
@@ -120,8 +126,8 @@ char	*ft_dtoa_base(double data, char *base, int width, int precision)
 
 	The bits of the floating point type can be extracted with the
 	help of a union that combines the floating point type and a
-	bitfeild that is made to correctly have the bits land on
-	them as they share the same memory space.
+	bitfeild that is made to correctly have the floating point type
+	bits land on them as they share the same memory space.
 
 	See "IEEE_754_types.h".
 
@@ -129,7 +135,6 @@ char	*ft_dtoa_base(double data, char *base, int width, int precision)
 	of the floating point types; this is handled in the header, just
 	make sure to turn the `IS_BIG_ENDIAN` macro on (1) or off (0) based
 	on the machine's architecture.
-
 
   COMMENT:
 
@@ -140,10 +145,11 @@ char	*ft_dtoa_base(double data, char *base, int width, int precision)
 	mantissa bits.
 
 	We must do this because the computer, when extracting the bits
-	from the floating-point type into the integer type, interpreted
+	from the floating-point type into the integer type, interprets
 	the bits in the context of the integer type, where each bit is
 	in a column that represents a power of two, going from 0, upward:
-	2^0, 2^1, 2^2 ... -->
+
+	            <-- ... 2^5, 2^4, 2^3, 2^2, 2^1, 2^0
 
 	Now we cannot shift bits in the integer type, as that would cause
 	us to lose the bits past the column representing 2^0, and we
@@ -157,5 +163,9 @@ char	*ft_dtoa_base(double data, char *base, int width, int precision)
 	the amount of mantissa bits; this can be done by multiplying the
 	number by 2^{-mantissa_bits}; or incrementally dividing the number
 	by 2 as many as 'mantissa_bits' times.
+
+	The exponent might be positive so the correction right shifts might
+	cancel out, so we subtract from the exponent the correction shifts
+	before any calculation to save us some computation.
 
 */
