@@ -1,3 +1,45 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   dtoa_base.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akharrou <akharrou@student.42.us.org>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/05 23:07:44 by akharrou          #+#    #+#             */
+/*   Updated: 2019/11/05 23:14:13 by akharrou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/*
+**    NAME
+**         ft_dtoa_base -- stringify floating-point type value
+**
+**    SYNOPSIS
+**         #include <libft.h>
+**
+**         char *
+**         ft_dtoa_base(double data, char *base, int width, int precision);
+**
+**    PARAMETERS
+**
+**         double data         Brief.
+**
+**         char *base          Brief.
+**
+**         int width           Brief.
+**
+**         int precision       Brief.
+**
+**    DESCRIPTION
+**         Description.
+**
+**    RETURN VALUES
+**         If successful returns 0; otherwise -1.
+*/
+
+#include "Libft/Includes/bigint.h"
+#include "Libft/Includes/stdlib_42.h"
+#include "Libft/Includes/string_42.h"
 
 #include "IEEE_754_types.h"
 
@@ -7,115 +49,51 @@ char	*ft_dtoa_base(double data, char *base, int width, int precision)
 	t_bigint result;
 	int32_t exp;
 
+	/* Extract Bits Representing the Floating-point Value */
 	flt.value = data;
+
+	/* Case #1: Zero */
 	if IEEE_754_DOUBLE_ZERO(flt.exponent, flt.mantissa)
+	{
 		result = ft_strdup("0");
+	}
+
+	/* Case #2: Infinity */
 	else if IEEE_754_DOUBLE_INF(flt.exponent, flt.mantissa)
+	{
 		return (flt.sign ? ft_strdup("-inf") : ft_strdup("+inf"));
+	}
+
+	/* Case #3: NaN */
 	else if IEEE_754_DOUBLE_NAN(flt.exponent, flt.mantissa)
+	{
 		return (flt.mantissa & (1L << (IEEE_754_DOUBLE_MANTISSA_BITS - 1)) ?
 			ft_strdup("QNaN") : ft_strdup("SNaN"));
+	}
+
+	/* Case #4: Denormalized (Subnormals) */
 	else if IEEE_754_DOUBLE_SUBNORMALS(flt.exponent, flt.mantissa)
 	{
-		result = (t_bigint)ft_utoa_base(flt.mantissa, DECIMAL_BASE, 0);
 		flt.exponent = -IEEE_754_DOUBLE_BIAS + 1;
 	}
+
+	/* Case #5: Normalized (Normal) */
 	else
 	{
-		result = (t_bigint)ft_utoa_base(flt.mantissa | IEEE_754_DOUBLE_IMPLICIT_BIT, DECIMAL_BASE, 0);
-		flt.exponent -= IEEE_754_DOUBLE_BIAS;
-	}
-	
-	exp = flt.exponent - IEEE_754_DOUBLE_MANTISSA_BITS;
-	if (exp > 0)
-		while (exp-- > 0)
-			result = bigint_mulfre(result, 2, base, 1);
-	else
-		while (exp++ < 0)
-			result = bigint_divfre(result, 2, base, 1);
-	
-	result = bigint_roundfre(result, base, ((precision >= 0) ? precision : 6), 1);
-	result = ft_strprepend(result, ft_padding(flt.sign + width - ft_strlen(result), '0'), 1, 1);
-	if (flt.sign)
-		result = ft_strprepend(result, "-", 1, 0);
-	
-	return (result);
-}
-
-
-
-/* EXPLAINED - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-char	*ft_dtoa_base(double data, char *base, int width, int precision)
-{
-	IEEE_754_double flt;
-	t_bigint result;
-	int32_t exp;
-
-	// Extract the Bits of the double Floating-Point Value //
-	flt.value = data;
-
-	// Cases //
-	if IEEE_754_DOUBLE_ZERO(flt.exponent, flt.mantissa)
-	{
-		result = ft_strdup("0");
-	}
-	else if IEEE_754_DOUBLE_INF(flt.exponent, flt.mantissa)
-	{
-		return (flt.sign ? ft_strdup("-inf") : ft_strdup("+inf"));
-	}
-	else if IEEE_754_DOUBLE_NAN(flt.exponent, flt.mantissa)
-	{
-		return (ft_strdup("nan"));
-		// return (flt.mantissa & (1L << (IEEE_754_DOUBLE_MANTISSA_BITS - 1)) ?
-		// 	ft_strdup("QNaN") : ft_strdup("SNaN"));
-	}
-	else if IEEE_754_DOUBLE_SUBNORMALS(flt.exponent, flt.mantissa)
-	{
-		// Convert the mantissa from integer type to (custom) bigint type //
-		result = (t_bigint)ft_utoa_base(flt.mantissa, DECIMAL_BASE, 0);
-		flt.exponent = -IEEE_754_DOUBLE_BIAS + 1;
-	}
-	else
-	{
-		// Convert the mantissa from integer type to (custom) bigint type //
-		result = (t_bigint)ft_utoa_base(flt.mantissa | IEEE_754_DOUBLE_IMPLICIT_BIT, DECIMAL_BASE, 0);
-		flt.exponent -= IEEE_754_DOUBLE_BIAS;
+		flt.exponent = flt.exponent - IEEE_754_DOUBLE_BIAS;
 	}
 
-	// Now we have to correct the position of the mantissa bits by
-	 * shifting all of them to the right until the first mantissa
-	 * bit is placed at the column that represents 2^-1; that would
-	 * mean shifting all the bits as many times as there are mantissa
-	 * bits.
-	 *
-	 * This is because the computer when extracting the bits from the
-	 * floating-point type into the unsigned integer, interpreted the
-	 * bits in that context, in the context of an integer type, where
-	 * each bit is in a column representing a power of two, going from
-	 * 0, upward: 2^0, 2^1, 2^2 ... -->
-	 *
-	 * But we can't do the shift on the unsigned integer type, as that
-	 * would cause us to lose the bits past the column representing 2^0,
-	 * and we certainly can't store it again in a floating-point type,
-	 * AND there is no type that has an encoding where each bit is in a
-	 * column representing 2^-1, 2^-2, 2^-3, ... so we must
-	 * create a custom type that has that.
-	 *
-	 * So I went ahead and made one, called it Bigint, you've probably
-	 * heard this somewhere before. It's a dynamic string that represents
-	 * numbers (in a given base) with characters instead of bits and that
-	 * can grow or shrink as much as needed according to the number it is
-	 * trying to represent. It is implemented such that it can also represent
-	 * numbers with decimals, so where there are columns representing
-	 * base^-1, base^-2, base^-3, ... and so on. //
+	/* Convert the Mantissa into the `bigint` Type */
+	/* or `|` the implicit bit to the mantissa if necessary */
+	result =
+		IEEE_754_DOUBLE_SUBNORMALS(flt.exponent, flt.mantissa) ?
+			ft_utoa_base( flt.mantissa | 0                            , DECIMAL_BASE, 0) :
+			ft_utoa_base( flt.mantissa | IEEE_754_DOUBLE_IMPLICIT_BIT , DECIMAL_BASE, 0);
 
-	// We add to the exponent the number of shifts to the
-	 * right that we must do //
+	/* Add number of times we must shift (to the right) the mantissa bits */
 	exp = flt.exponent - IEEE_754_DOUBLE_MANTISSA_BITS;
 
-	// Multiply by the exponent to get rid of the offset that the
-	significand is at //
+	/* Shift Mantissa Bits to Correct Positions & Multiply with 2^{X} */
 	if (exp > 0)
 		while (exp-- > 0)
 			result = bigint_mulfre(result, 2, base, 1);
@@ -123,17 +101,61 @@ char	*ft_dtoa_base(double data, char *base, int width, int precision)
 		while (exp++ < 0)
 			result = bigint_divfre(result, 2, base, 1);
 
-	// Round to the desired precision //
+	/* Round to desired Precision */
 	result = bigint_roundfre(result, base, ((precision >= 0) ? precision : 6), 1);
 
-	// Prepend with 0's as desired //
+	/* Pad to desired Total Width */
 	result = ft_strprepend(result, ft_padding(flt.sign + width - ft_strlen(result), '0'), 1, 1);
 
-	// Preprend with sign as needed //
+	/* Prepend Sign (if needed) */
 	if (flt.sign)
 		result = ft_strprepend(result, "-", 1, 0);
 
 	return (result);
 }
+
+/*
+
+  COMMENT:
+
+	The bits of the floating point type can be extracted with the
+	help of a union that combines the floating point type and a
+	bitfeild that is made to correctly have the bits land on
+	them as they share the same memory space.
+
+	See "IEEE_754_types.h".
+
+	Note that the endianness will effect the order of the bit sections
+	of the floating point types; this is handled in the header, just
+	make sure to turn the `IS_BIG_ENDIAN` macro on (1) or off (0) based
+	on the machine's architecture.
+
+
+  COMMENT:
+
+	In the process, we have to correct the position of the mantissa
+	bits. We do this by shifting all the bits to the right until the
+	first mantissa bit is placed at the column that represents 2^-1;
+	that would mean shifting all the bits as many times as there are
+	mantissa bits.
+
+	We must do this because the computer, when extracting the bits
+	from the floating-point type into the integer type, interpreted
+	the bits in the context of the integer type, where each bit is
+	in a column that represents a power of two, going from 0, upward:
+	2^0, 2^1, 2^2 ... -->
+
+	Now we cannot shift bits in the integer type, as that would cause
+	us to lose the bits past the column representing 2^0, and we
+	certainly can't store it again in a floating-point type, AND there
+	is no type that has an encoding where each bit is in a column
+	representing 2^-1, 2^-2, 2^-3, ... so you have to create a custom
+	type that can do that encoding.
+
+	Once the type is implemented go ahead and convert the the mantissa
+	held in the integer into the custom type and shift the number by
+	the amount of mantissa bits; this can be done by multiplying the
+	number by 2^{-mantissa_bits}; or incrementally dividing the number
+	by 2 as many as 'mantissa_bits' times.
 
 */
