@@ -25,7 +25,9 @@
 **  Macro(s).
 */
 
-# define IS_BIG_ENDIAN (0)
+# define IS_BIG_ENDIAN (0)  /* <-- Make sure to change this according to your
+                                   endianness, (1) if big endian, (0) if little
+				   endian */
 
 /*
 ** - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
