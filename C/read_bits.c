@@ -72,7 +72,7 @@
 **         the value (of type T).
 **
 **    RETURN VALUES
-**         Returns a the memory representation as a null-terminated string.
+**         Returns the memory representation as a null-terminated string.
 */
 
 /* HEADERS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
