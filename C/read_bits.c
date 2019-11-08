@@ -55,9 +55,6 @@
 **                               argument are formed by or'ing the
 **                               following values:
 **
-**                               O_DEFAULT          not spaced & in big
-**                                                  endianness
-**
 **                               O_SPACED           bytes or major sections
 **                                                  are spaced
 **
@@ -65,6 +62,7 @@
 **                                                  0's at the end
 **
 **                               O_LITTLE_ENDIAN    little-endian representation
+**
 **                               O_BIG_ENDIAN       big-endian representation
 **
 **    DESCRIPTION
