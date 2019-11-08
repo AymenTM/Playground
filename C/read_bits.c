@@ -182,7 +182,7 @@ char	*readbits_integral(void *integral, size_t size, int oflags)
 	return (buf);
 }
 
-# define make_readbits_floating_type(T, BITLEN, MANTISSA, EXPONENT)             \
+# define make_readbits_floating_type(T, BIT_LEN, MANTISSA_LEN, EXPONENT_LEN)    \
                                                                                 \
 	char	*readbits_##T( T flt, int oflags )                              \
 	{                                                                       \
@@ -190,17 +190,17 @@ char	*readbits_integral(void *integral, size_t size, int oflags)
 		size_t	bufsize;                                                \
 		size_t	i;                                                      \
                                                                                 \
-		bufsize = (BITLEN) + ((oflags & O_SPACED) ? 2 : 0) + 1;         \
+		bufsize = (BIT_LEN) + ((oflags & O_SPACED) ? 2 : 0) + 1;        \
 		if (!(buf = malloc(bufsize)))                                   \
 			return (NULL);                                          \
 		buf[--bufsize] = '\0';                                          \
 		i = 0;                                                          \
-		while (i < MANTISSA)                                            \
+		while (i < MANTISSA_LEN)                                        \
 			buf[--bufsize] = flt.mantissa & BIT(i++) ? '1' : '0';   \
 		if (oflags & O_SPACED)                                          \
 			buf[--bufsize] = ' ';                                   \
 		i = 0;                                                          \
-		while (i < EXPONENT)                                            \
+		while (i < EXPONENT_LEN)                                        \
 			buf[--bufsize] = flt.exponent & BIT(i++) ? '1' : '0';   \
 		if (oflags & O_SPACED)                                          \
 			buf[--bufsize] = ' ';                                   \
