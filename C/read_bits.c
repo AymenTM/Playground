@@ -55,6 +55,9 @@
 **                               argument are formed by or'ing the
 **                               following values:
 **
+**                               O_DEFAULT          unspaced, big endian &
+**                                                  no truncation
+**
 **                               O_SPACED           bytes or major sections
 **                                                  are spaced
 **
